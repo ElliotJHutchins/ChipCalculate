@@ -16,14 +16,15 @@ class chipinput_form(forms.ModelForm):
         fields = ['chip_color', 'chips_worth', 'number_of_this_chip', 'active', 'per_person']
 
 
+
+
+
 active_chips = chipInput.objects.active().values()
-display_chip_formset = formset_factory(chipinput_form, extra=10)
-chip_set = display_chip_formset(initial=[active_chips]
-)
+display_chip_formset = formset_factory(chipinput_form, extra=(0), max_num=10)
+chip_set = display_chip_formset(initial=active_chips)
 
 
-for form in chip_set:
-    print (form.as_table())
+
 
 
 
