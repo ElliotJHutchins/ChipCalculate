@@ -1,13 +1,15 @@
 __author__ = 'Elliot Hutchins'
 
 # example database item
+# chipavail = [['red', 200, 5], ['black', 200, 100]]
 
 
-# empty lists
-chipavail = []
+
+# empty lists A
 chipPlayer = []
 ordered_chips = []
-final_lists = []
+
+
 
 # maximum number of each type of chip to give each person
 max_of_chip = 10
@@ -42,6 +44,7 @@ def create_chipPlayer(chipavailable):
 def chip_calculate(value, players):
     create_chipPlayer(order_chips(chipavail))
     total = []
+
     # calculate the weighted multiplier by using the value as a guide
     if value <= 200:
         weighted_multiplier = 3
@@ -81,16 +84,47 @@ def chip_calculate(value, players):
         print "The value per player is too high, and we are unable to optimize a chip list"
         print "The most most efficient chips available per player is: %s" % (round(sum(total) * .01) * 100)
         print "Another option is to change maximum chips of each color per player"
+    global chipavail
 
-    return chipPlayer, sum(total),
+
+
+    return chipPlayer, sum(total)
 
 # creates the final list
 def final_list(value, players, chiptable):
-    chipavail.append(chiptable)
-    chip_calculate(value, players)
+
+    # Empty lists B
+    final_lists = []
+    chipavail = []
+
+    # populate items to calculate
+    for each in chiptable:
+        chipavail.append(each)
+
+    # run the actual calculations
+    True_run = chip_calculate(value, players)
+
+    # keep total
+    instance_total = True_run[1]
+
+    global chipavail
     for each in chipPlayer:
         final_lists.append([each[1], reverse_lookup_total(each[0], 0)])
-    return final_lists
+
+    # Clear globals
+    global chipPlayer
+    chipPlayer = []
+    global ordered_chips
+    ordered_chips = []
+
+    # Final return
+    return final_lists, instance_total
+
+
+
+    # clear globals
+
+
 
 
 # 8 available options:
